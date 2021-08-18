@@ -47,7 +47,15 @@ document.querySelector('.submit-btn').addEventListener('click', (e) => {
         input.value ? removeErrorClass(input) : addErrorClass(input);
     });
     if (!validateCount.size) {
-        window.location.href = '/';
+        fetch('send.php', {
+            body: new FormData(document.querySelector('.form')),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            document.querySelector('.form').reset();
+        });
     }
 });
 
